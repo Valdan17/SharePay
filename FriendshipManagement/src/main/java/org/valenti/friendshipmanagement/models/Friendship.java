@@ -1,10 +1,5 @@
 package org.valenti.friendshipmanagement.models;
 
-
-/*
-    PROVA FORSE AD USARE NEO4J PER MODELLARE LE RELAZIONI DI AMICIZIA
- */
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;

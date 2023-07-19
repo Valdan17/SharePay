@@ -12,5 +12,4 @@ public class AuthManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AuthManagementApplication.class, args);
 	}
-
 }

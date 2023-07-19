@@ -47,11 +47,24 @@ public class UserService {
     public ResponseEntity<LoginDTO> getUserCredentialsByUsername(String username) {
         Optional<User> userToLog = userRepository.findUserByUsername(username);
 
+        if (username.isBlank() || !userToLog.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return new ResponseEntity<>(new LoginDTO(userToLog.get().getUsername(), userToLog.get().getPassword()), HttpStatus.ACCEPTED);
+    }
+
+    /*
+    public ResponseEntity<LoginDTO> getUserCredentialsByUsername(String username) {
+        Optional<User> userToLog = userRepository.findUserByUsername(username);
+
         if (userToLog.isPresent()) {
             return new ResponseEntity<>(new LoginDTO(userToLog.get().getUsername(), userToLog.get().getPassword()), HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
+
+     */
 
     public String deleteUserById(Integer id) {
         if (userRepository.findById(id).isPresent()) {

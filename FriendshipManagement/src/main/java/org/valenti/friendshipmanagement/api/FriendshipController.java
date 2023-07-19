@@ -31,6 +31,13 @@ public class FriendshipController {
         return friendshipService.addNewFriendship(newFriendship);
     }
 
+    //GET http://localhost:8080/friendship/find/all/{id}
+    @GetMapping(path="/find/all/{userId}")
+    public @ResponseBody FriendshipListDTO findAllFriends(@PathVariable Integer userId){
+        Iterable<Friendship> friendshipList = friendshipService.getAllFriends(userId);
+        return new FriendshipListDTO(friendshipList);
+    }
+
     //GET http://localhost:8080/friendship/find/all => LISTA AMICI DATO UN CERTO ID
     @GetMapping(path="/find/all")
     public @ResponseBody FriendshipListDTO findAllFriends(@RequestBody UserDTO user){

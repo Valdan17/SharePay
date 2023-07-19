@@ -9,6 +9,11 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/test")
 public class TestController {
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello from the Auth service!";
+    }
+
     @GetMapping("/test23")
     public Mono<String> test() {
         return Mono.just("test");

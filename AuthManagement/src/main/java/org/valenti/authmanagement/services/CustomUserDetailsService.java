@@ -11,9 +11,24 @@ import java.util.Map;
 
 public class CustomUserDetailsService implements ReactiveUserDetailsService {
 
+    /*
+    For local execution of the microservices
+
     @Override
     public Mono<UserDetails> findByUsername(String username) {
-        return WebClient.create().get().uri("http://localhost:8080/user/credentials/{username}", Map.of("username", username)).retrieve().toEntity(LoginDTO.class).flatMap(responseEntityLoginDTO -> {
+        return WebClient.create().get().uri("http://localhost:8081/user/credentials/{username}", Map.of("username", username)).retrieve().toEntity(LoginDTO.class).flatMap(responseEntityLoginDTO -> {
+            if (!responseEntityLoginDTO.getStatusCode().is2xxSuccessful()) {
+                return Mono.empty();
+            }
+            return Mono.just(User.withUsername(username).password("{noop}" + responseEntityLoginDTO.getBody().getPassword()).roles("USER").build());
+        });
+    }
+
+     */
+
+    @Override
+    public Mono<UserDetails> findByUsername(String username) {
+        return WebClient.create().get().uri("http://user-management:8080/user/credentials/{username}", Map.of("username", username)).retrieve().toEntity(LoginDTO.class).flatMap(responseEntityLoginDTO -> {
             if (!responseEntityLoginDTO.getStatusCode().is2xxSuccessful()) {
                 return Mono.empty();
             }
